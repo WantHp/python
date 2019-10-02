@@ -1,0 +1,123 @@
+import numpy as np
+
+
+#数组形状：.T/.reshape()/.resize()
+
+ar1=np.arange(10)
+ar2=np.zeros((2,5))
+print(ar1)
+print(ar2)
+# .T方法：转置，例如原shape为(3,4)/(2,3,4)，转置结果为(4,3)/(4,3,2) → 所以一维数组转置后结果不变
+print(ar1.T)  #转置
+print(ar2.T)
+print('----1----')
+ar3=ar1.reshape(2,5)
+ar4=np.zeros((4,6)).reshape(3,8)
+ar5=np.reshape(np.arange(12),(3,4))
+print(ar3)
+print(ar4)
+print(ar5)
+print('----2----')
+
+#返回形状，默认给值
+ar6=np.resize(np.arange(5),(3,4))
+print(ar6)
+
+
+#数组的复制
+ar6=np.arange(10)
+ar7=ar6
+print(ar7 is ar6)
+ar6[2]=100
+print(ar6,ar7)
+
+ar8=ar6.copy()
+ar6[1]=100
+print(ar6,ar8)
+
+
+#数组类型转换 :.astype()
+ar11=np.arange(10,dtype=float)
+ar12=ar11.astype(np.int64)
+print(ar11,ar11.dtype)
+print(ar12,ar12.dtype)
+
+#数组的堆叠
+# 数组堆叠
+
+a = np.arange(5)    # a为一维数组，5个元素
+b = np.arange(5,9) # b为一维数组,4个元素
+ar1 = np.hstack((a,b))  # 注意:((a,b))，这里形状可以不一样
+print(a,a.shape)
+print(b,b.shape)
+print(ar1,ar1.shape)
+a = np.array([[1],[2],[3]])   # a为二维数组，3行1列
+b = np.array([['a'],['b'],['c']])  # b为二维数组，3行1列
+ar2 = np.hstack((a,b))  # 注意:((a,b))，这里形状必须一样
+print(a,a.shape)
+print(b,b.shape)
+print(ar2,ar2.shape)
+print('-----')
+# numpy.hstack(tup)：水平（按列顺序）堆叠数组
+
+a = np.arange(5)
+b = np.arange(5,10)
+ar1 = np.vstack((a,b))
+print(a,a.shape)
+print(b,b.shape)
+print(ar1,ar1.shape)
+a = np.array([[1],[2],[3]])
+b = np.array([['a'],['b'],['c'],['d']])
+ar2 = np.vstack((a,b))  # 这里形状可以不一样
+print(a,a.shape)
+print(b,b.shape)
+print(ar2,ar2.shape)
+print('-----')
+# numpy.vstack(tup)：垂直（按列顺序）堆叠数组
+
+a = np.arange(5)
+b = np.arange(5,10)
+ar1 = np.stack((a,b))
+ar2 = np.stack((a,b),axis = 1)
+print(a,a.shape)
+print(b,b.shape)
+print(ar1,ar1.shape)
+print(ar2,ar2.shape)
+# numpy.stack(arrays, axis=0)：沿着新轴连接数组的序列，形状必须一样！
+# 重点解释axis参数的意思，假设两个数组[1 2 3]和[4 5 6]，shape均为(3,0)
+# axis=0：[[1 2 3] [4 5 6]]，shape为(2,3)
+# axis=1：[[1 4] [2 5] [3 6]]，shape为(3,2)
+
+
+
+# 数组拆分
+
+ar = np.arange(16).reshape(4,4)
+ar1 = np.hsplit(ar,2)
+print(ar)
+print(ar1,type(ar1))
+# numpy.hsplit(ary, indices_or_sections)：将数组水平（逐列）拆分为多个子数组 → 按列拆分
+# 输出结果为列表，列表中元素为数组
+
+ar2 = np.vsplit(ar,4)
+print(ar2,type(ar2))
+# numpy.vsplit(ary, indices_or_sections)：:将数组垂直（行方向）拆分为多个子数组 → 按行拆
+
+
+# 数组简单运算
+
+ar = np.arange(6).reshape(2,3)
+print(ar + 10)   # 加法
+print(ar * 2)   # 乘法
+print(1 / (ar+1))  # 除法
+print(ar ** 0.5)  # 幂
+# 与标量的运算
+
+print(ar.mean())  # 求平均值
+print(ar.max())  # 求最大值
+print(ar.min())  # 求最小值
+print(ar.std())  # 求标准差
+print(ar.var())  # 求方差
+print(ar.sum(), np.sum(ar,axis = 0))  # 求和，np.sum() → axis为0，按列求和；axis为1，按行求和
+print(np.sort(np.array([1,4,3,2,5,6])))  # 排序
+# 常用函数
